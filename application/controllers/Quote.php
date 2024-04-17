@@ -39,10 +39,11 @@ class Quote extends CI_Controller {
 	}
 	public function add_quote_process()
 	{
-		/* echo "<pre>";
+		echo "<pre>";
 		print_r($_POST);
+		print_r($_FILES);
 		echo "</pre>";
-		exit(); */
+		exit();
 		$data = array(
 			'user_id' => $this->session->userdata('user_id'),
 			'fname' => $this->input->post('fname'),
@@ -88,5 +89,13 @@ class Quote extends CI_Controller {
 		$result = $this->ModelUsers->delete_user($user_id);
 		echo json_encode($result);
 		//redirect(base_url().'designers', 'refresh');	
+	}
+
+	public function edit_image()
+	{
+		$this->isLoggedIn();
+		$this->load->view('header');
+		$this->load->view('edit_image');
+		$this->load->view('footer');
 	}
 }
