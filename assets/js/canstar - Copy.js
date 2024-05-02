@@ -164,19 +164,21 @@ $('#add_quote').on('submit', function(e)
 {
     e.preventDefault();
     var formData = new FormData(this);
+    // Get the base64 data from the image elements
+    var drawnLinesBase64 = $('#drawnLinesPreview').attr('src');
+    var fullyEditedBase64 = $('#fullyEditedPreview').attr('src');
 
-    // Iterate over additional drawnLinesPreview and fullyEditedPreview elements
-    $('[id^=drawnLinesPreview_]').each(function(index) {
-        var base64Data = $(this).attr('src').replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
-        var blob = base64ToBlob(base64Data);
-        formData.append('drawnLinesInput_' + index, blob, 'drawnLines_' + index + '.png');
-    });
+    // Extract the base64 data from the URIs
+    var drawnLinesData = drawnLinesBase64.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
+    var fullyEditedData = fullyEditedBase64.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
 
-    $('[id^=fullyEditedPreview_]').each(function(index) {
-        var base64Data = $(this).attr('src').replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
-        var blob = base64ToBlob(base64Data);
-        formData.append('fullyEditedInput_' + index, blob, 'fullyEdited_' + index + '.png');
-    });
+    // Convert base64 data to a Blob object
+    var drawnLinesBlob = base64ToBlob(drawnLinesData);
+    var fullyEditedBlob = base64ToBlob(fullyEditedData);
+
+    // Append image files to FormData
+    formData.append('drawnLinesInput', drawnLinesBlob, 'drawnLines.png');
+    formData.append('fullyEditedInput', fullyEditedBlob, 'fullyEdited.png');
     console.log(formData);
     $.ajax({
         url: base_url+"Quote/add_quote_process", 

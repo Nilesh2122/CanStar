@@ -19,7 +19,6 @@ Class ModelQuote extends CI_Model
         {
             $this->db->where( 'user_tbl.user_id', $user_id);
         }
-        $this->db->order_by('quote_id', 'desc');
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
@@ -178,47 +177,32 @@ Class ModelQuote extends CI_Model
 
     public function insert_annotation_data($quote_id)
     {
+        // Initialize image data array
         $image_data = [];
 
-        // Process drawnLinesInput and fullyEditedInput
-        $fileData = $_FILES;
-        $index = 1;
-        $index1 = 1;
-        foreach ($fileData as $key => $value) {
-            if (strpos($key, 'drawnLinesInput_') === 0) {
-                $drawn_lines_image_data = $this->process_image($key, 'drawnLines', $quote_id,$index);
-                $image_data = array_merge($image_data, $drawn_lines_image_data);
-                $index++;
-            } elseif (strpos($key, 'fullyEditedInput_') === 0) {
-                $fully_edited_image_data = $this->process_image($key, 'fullyEdited', $quote_id,$index1);
-                $image_data = array_merge($image_data, $fully_edited_image_data);
-                $index1++;
-            }
-           
-        }
+        // Process drawnLinesInput
+        $drawn_lines_image_data = $this->process_image('drawnLinesInput', 'drawnLines', $quote_id);
+        $image_data = array_merge($image_data, $drawn_lines_image_data);
 
-       /*  echo "<pre>";
-		print_r($image_data);
-		echo "</pre>";
-		exit();  */
+        // Process fullyEditedInput
+        $fully_edited_image_data = $this->process_image('fullyEditedInput', 'fullyEdited', $quote_id);
+        $image_data = array_merge($image_data, $fully_edited_image_data);
+
+
         // Insert image data into the database
         foreach ($image_data as $data) {
             $this->insert_annotation_image_data($data);
         }
     }
-    private function process_image($file_input_name, $access_type, $quote_id, $index)
+    private function process_image($file_input_name, $access_type, $quote_id)
     {
-        /* echo "<pre>";
-		print_r($index);
-		echo "</pre>";
-		exit();  */
         $image_data = [];
-        
+
         if (!empty($_FILES[$file_input_name]['name'])) {
             $file_info = $_FILES[$file_input_name];
 
             // Handle file upload
-            $file_name = uniqid() .$file_info['name'];
+            $file_name = $file_info['name'];
             $file_tmp = $file_info['tmp_name'];
             $file_path = 'assets/uploads/' . $file_name; // Change this path to your upload directory
             move_uploaded_file($file_tmp, $file_path);
@@ -229,10 +213,6 @@ Class ModelQuote extends CI_Model
                 'type' => $access_type,
                 'identify_image_name' => $file_name,
                 'image_url' => $file_path,
-                'identify_image_name' => ($index != 1) ? $_POST['identify_photo_'.$index] :$_POST['identify_photo'],
-                'total' => ($index != 1) ? $_POST['sumInputBox_'.$index] :$_POST['sumInputBox'],
-                'no_peaks' => ($index != 1) ? $_POST['peaks_'.$index] :$_POST['peaks'],
-                'no_jumper' => ($index != 1) ? $_POST['jumper_'.$index] :$_POST['jumper'],
                 'created_at' => date('Y-m-d H:i:s')
             ];
         }

@@ -39,12 +39,28 @@ class Quote extends CI_Controller {
 	}
 	public function add_quote_process()
 	{
-		
-		/* echo "<pre>";
+		echo "<pre>";
 		print_r($_POST);
 		print_r($_FILES);
 		echo "</pre>";
-		exit();  */
+		exit(); 
+		/* $drawnLinesInput = $_FILES['drawnLinesInput'];
+		$fullyEditedInput = $_FILES['fullyEditedInput'];
+
+		// Destination directory for storing uploaded files
+		$uploadDir = './assets/uploads/';
+
+		// Move uploaded files to the destination directory
+		$drawnLinesPath = $uploadDir . basename($drawnLinesInput['name']);
+		move_uploaded_file($drawnLinesInput['tmp_name'], $drawnLinesPath);
+
+		$fullyEditedPath = $uploadDir . basename($fullyEditedInput['name']);
+		move_uploaded_file($fullyEditedInput['tmp_name'], $fullyEditedPath);
+		echo "<pre>";
+		print_r($drawnLinesPath);
+		print_r($fullyEditedPath);
+		echo "</pre>";
+		exit(); */
 		$data = array(
 			'user_id' => $this->session->userdata('user_id'),
 			'fname' => $this->input->post('fname'),

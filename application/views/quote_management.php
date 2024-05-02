@@ -36,6 +36,7 @@
                                         <th>Address</th>
                                         <th>Color</th>
                                         <th>Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,6 +50,16 @@
                                         <td><?php echo $row['address'].'<br>'.$row['city'].', '.$row['state'];?></td>
                                         <td><?php echo $row['color'];?></td>
                                         <td><?php echo $row['created_at'];?></td>
+                                        <td>
+                                          <ul class="list-unstyled mb-0 d-flex align-items-center">
+                                            <li class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
+                                              <a class="d-block text-dark px-2 fs-5 bg-hover-primary nav-icon-hover position-relative z-index-5" href="<?php echo base_url(); ?>Quote/view_quote/<?php echo $row['quote_id']; ?>">
+                                                <i class="ti ti-eye fs-5"></i>
+                                              </a>
+                                            </li>
+                                            
+                                          </ul>
+                                        </td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>

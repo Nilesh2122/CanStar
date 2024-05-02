@@ -2,9 +2,6 @@
     #image-container {
         position: relative;
     }
-    #image-container img{
-      width: 100%;
-    }
     #annotation-overlay {
         position: absolute;
         top: 0;
@@ -209,7 +206,7 @@
             </div>
           </div>
 
-          <div class="row align-items-end mb-2 main-row">
+          <div class="row align-items-end mb-2">
             <div class="col-md-3">
                 <label class="mb-1">Annotation Image</label>
                 <div class="custom-file">
@@ -218,7 +215,7 @@
             </div>
             <div class="col-md-1">
                 <!-- Edit button -->
-                <button class="btn btn-primary waves-effect waves-light btn-edit" type="button">
+                <button class="btn btn-primary waves-effect waves-light" type="button" onclick="openEditPopup()">
                     <i class="ti ti-pencil fs-5"></i>
                 </button>
             </div>
@@ -239,17 +236,17 @@
                 <input type="text" class="form-control" id="jumper" name="jumper" required="">
             </div>
             <div class="d-block mt-4">
-              <div id="drawnLinesPreviewContainer" style="display: none;width:20%">
-                  <img id="drawnLinesPreview_1" src="" class="preview-image" alt="Drawn Lines Preview" style="max-width: 100%;" name="drawnLinesPreview">
+              <div id="drawnLinesPreviewContainer"  style="display: none;width:20%">
+                  <img id="drawnLinesPreview" src="" class="preview-image" alt="Drawn Lines Preview" style="max-width: 100%;" name="drawnLinesPreview">
               </div>
 
               <div id="fullyEditedPreviewContainer" style="display: none;width:20%">
-                  <img id="fullyEditedPreview_1" src="" class="preview-image" alt="Fully Edited Preview" style="max-width: 100%;" name="fullyEditedPreview">
+                  <img id="fullyEditedPreview" src="" class="preview-image" alt="Fully Edited Preview" style="max-width: 100%;" name="fullyEditedPreview">
               </div>
             </div>
         </div>
         <div>
-          <button type="button" class="btn btn-info waves-effect waves-light mb-4 btn-add-more">
+          <button type="button" class="btn btn-info waves-effect waves-light mb-4">
             <div class="d-flex align-items-center">
               Add More
               <i class="ti ti-circle-plus ms-1 fs-5"></i>
@@ -294,7 +291,7 @@
                     </div>
                     <div class="col-md-2">
                       <label for="line-weight">Line weight:</label><br>
-                      <input type="range" id="line-weight" min="1" max="10" value="3">
+                      <input type="range" id="line-weight" min="1" max="10" value="2">
                     </div>
                     <div class="col-md-5 d-block">
                       <label for="text-input" class="d-inline">Enter text:</label>
@@ -340,51 +337,6 @@
   <script src="<?php echo base_url(); ?>assets/libs/jquery.repeater/jquery.repeater.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/plugins/repeater-init.js"></script>
   <script>
-    $(document).ready(function() {
-      var rowCount = 1; // Initialize row count
-      
-      // Add more button click event
-      $('.btn-add-more').click(function() {
-        var clone = $('.main-row').first().clone(); // Clone the main row
-        rowCount++; // Increment row count
-        
-        // Remove label from cloned row
-        clone.find('label').remove();
-        
-        // Set unique field names and IDs
-        clone.find('input').each(function() {
-          var fieldName = $(this).attr('name');
-          $(this).attr('name', fieldName + '_' + rowCount);
-          $(this).attr('id', fieldName + '_' + rowCount);
-          $(this).val(''); // Clear input values
-        });
-        
-        clone.find('.preview-image[name="drawnLinesPreview"]').attr({
-            'id': 'drawnLinesPreview_' + rowCount,
-            'name': 'drawnLinesPreview_' + rowCount,
-            'src':''
-        });
-        clone.find('.preview-image[name="fullyEditedPreview"]').attr({
-            'id': 'fullyEditedPreview_' + rowCount,
-            'name': 'fullyEditedPreview_' + rowCount,
-            'src':''
-        });
-        clone.find('#drawnLinesPreviewContainer').hide();
-        clone.find('#fullyEditedPreviewContainer').hide();
-        // Append the cloned row after the last main row
-        $('.main-row:last').after(clone);
-      });
-    });
-    $(document).on('click', '.btn-edit', function() {
-        var mainRow = $(this).closest('.main-row');
-        
-        if (mainRow.length > 0) {
-            var currentRowCount = $('.main-row').index(mainRow) + 1;
-            openEditPopup(currentRowCount);
-        } else {
-            console.log('Error: Main row not found.');
-        }
-    });
      $('input[name="plugaccess"]').change(function(){
         var value = $(this).val();
         //alert(value);
@@ -429,15 +381,12 @@
         rowToClone.after(clonedRow);
     }
 
-    function openEditPopup(currentRowCount) {
-      //alert(currentRowCount);
+    function openEditPopup() {
         // Open the modal
         $('#editImageModal').modal('show');
-        $('#save-btn').attr('data-row-count', currentRowCount);
 
-        var input = (currentRowCount == 1) ? document.getElementById('annotation_image') : document.getElementById('annotation_image_' + currentRowCount);
         // Get the file input element
-       
+        var input = document.getElementById('annotation_image');
 
         // Check if any file is selected
         if (input.files && input.files[0]) {
@@ -552,8 +501,7 @@
             });
 
             $('#save-btn').on('click', function(){
-                var rowCount = $(this).attr('data-row-count');
-                saveImage(rowCount);
+                saveImage();
             });
 
             function addText(text, x, y) {
@@ -603,7 +551,7 @@
         }
 
 
-        function saveImage(rowCount) {
+        function saveImage() {
             // Create a canvas for drawn lines
             var drawnLinesCanvas = document.createElement('canvas');
             drawnLinesCanvas.width = originalImg.width;
@@ -619,11 +567,10 @@
 
             // Convert drawn lines canvas to a data URL and display it in the drawn lines preview
             var drawnLinesImageUrl = drawnLinesCanvas.toDataURL('image/png');
-            var drawnLinesPreviewId = '#drawnLinesPreview_' + rowCount;
-            $(drawnLinesPreviewId).attr('src', drawnLinesImageUrl);
+            $('#drawnLinesPreview').attr('src', drawnLinesImageUrl);
             $('#drawnLinesPreviewContainer').css('display', 'inline-block');
-            //$('#drawnLinesPreviewContainer').show();
-            $(drawnLinesPreviewId).parent().show();
+            $('#drawnLinesPreviewContainer').show();
+
             // Create a canvas for the fully edited image
             var fullyEditedCanvas = document.createElement('canvas');
             fullyEditedCanvas.width = originalImg.width;
@@ -669,16 +616,14 @@
                 var text_value = parseInt($textBox.text()) || 0; // Parse the text as an integer, default to 0 if not a valid number
                 sum += text_value; // Accumulate the sum
             });
-            var sumInputBox = (rowCount == 1) ? '#sumInputBox' : '#sumInputBox_' + rowCount;
-            $(sumInputBox).val(sum);
+            $('#sumInputBox').val(sum);
 
             // Convert fully edited canvas to a data URL and display it in the fully edited image preview
             var fullyEditedImageUrl = fullyEditedCanvas.toDataURL('image/png');
-            var fullyEditedPreview = '#fullyEditedPreview_' + rowCount;
-            $(fullyEditedPreview).attr('src', fullyEditedImageUrl);
+            $('#fullyEditedPreview').attr('src', fullyEditedImageUrl);
             $('#fullyEditedPreviewContainer').css('display', 'inline-block');
-            //$('#fullyEditedPreviewContainer').show();
-            $(fullyEditedPreview).parent().show();
+            $('#fullyEditedPreviewContainer').show();
+
             $('#editImageModal').modal('hide');
         }
 

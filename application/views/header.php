@@ -114,14 +114,7 @@
                       <span class="hide-menu">Add</span>
                     </a>
                   </li>
-                  <li class="sidebar-item">
-                    <a href="<?php echo base_url(); ?>Quote/add_quote" class="sidebar-link">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Edit Image</span>
-                    </a>
-                  </li>
+                  
                 </ul>
               </li>
               <li class="sidebar-item">
@@ -207,14 +200,7 @@
                       <span class="hide-menu">Add</span>
                     </a>
                   </li>
-                  <li class="sidebar-item">
-                    <a href="<?php echo base_url(); ?>Quote/edit_image" class="sidebar-link">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Edit Image</span>
-                    </a>
-                  </li>
+                  
                 </ul>
               </li>
               <?php } ?>
