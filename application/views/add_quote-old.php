@@ -230,30 +230,13 @@
                 <label class="mb-1">Total</label>
                 <input type="text" class="form-control" id="sumInputBox" name="sumInputBox" readonly>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <label class="mb-1">Number of Peaks</label>
                 <input type="text" class="form-control" id="peaks" name="peaks" required="">
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <label class="mb-1">Number of Jumper</label>
                 <input type="text" class="form-control" id="jumper" name="jumper" required="">
-            </div>
-            <div class="col-md-1">
-                <label class="mb-1">Unit price</label>
-                <input type="text" class="form-control" id="jumper" name="jumper" required="">
-            </div>
-            <div class="col-md-1">
-                <label class="mb-1">Color</label>
-                <select class="form-control form-select" id="color" name="color" required>
-                  <option>--Select color--</option>
-                  <option>Red</option>
-                  <option>Blue</option>
-                  <option>Yellow</option>
-                </select>
-            </div>
-            <div class="col-md-1">
-                <label class="mb-1">Amount</label>
-                <input type="text" class="form-control" id="jumper" name="jumper" required="" value="1500">
             </div>
             <div class="d-block mt-4">
               <div id="drawnLinesPreviewContainer" style="display: none;width:20%">

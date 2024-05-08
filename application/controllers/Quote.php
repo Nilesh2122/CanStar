@@ -32,9 +32,10 @@ class Quote extends CI_Controller {
 	}
 	public function add_quote()
 	{
+		$result['product'] = $this->ModelQuote->getProductdata();
 		$this->isLoggedIn();
 		$this->load->view('header');
-		$this->load->view('add_quote');
+		$this->load->view('add_quote',$result);
 		$this->load->view('footer');
 	}
 	public function add_quote_process()
@@ -44,7 +45,18 @@ class Quote extends CI_Controller {
 		print_r($_POST);
 		print_r($_FILES);
 		echo "</pre>";
-		exit();  */
+		exit(); */ 
+		$products = array();
+        for ($i = 1; isset($_POST['product_'.$i]); $i++) {
+            $product = array(
+                'product' => $_POST['product_'.$i],
+                'qty' => $_POST['product_qty_'.$i],
+                'amount' => $_POST['product_amount_'.$i]
+            );
+            $products[] = $product;
+        }
+        $product_json_data = json_encode($products);
+		 
 		$data = array(
 			'user_id' => $this->session->userdata('user_id'),
 			'fname' => $this->input->post('fname'),
@@ -54,10 +66,18 @@ class Quote extends CI_Controller {
 			'city' => $this->input->post('city'),
 			'state' => $this->input->post('state'),
 			'post_code' => $this->input->post('post_code'),
-			'color' => $this->input->post('color'),
+			'product_data' => $product_json_data,
+			'total_controller_price' => $this->input->post('total-controller-input'),
+			'total_feet_price' => $this->input->post('total-feet-input'),
+			'main_total' => $this->input->post('total-input'),
 			'created_at' => date('Y-m-d H:i:s')
 		);
-
+		/* echo "<pre>";
+		print_r($data);
+		print_r($_POST);
+		print_r($_FILES);
+		echo "</pre>";
+		exit(); */
 		$response_data = $this->ModelQuote->add_quote_process($data);
 		echo json_encode($response_data);
     }

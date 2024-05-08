@@ -27,6 +27,13 @@
     #add_quote img{
         width: 100%;
     }
+    .main-total-div{
+      text-align: right;
+      display: inline-block;
+      float: right;
+      font-size: 16px;
+      font-weight: 700;
+    }
 </style>
 <div class="container-fluid">
   <div class="card bg-light-info shadow-none position-relative overflow-hidden">
@@ -56,6 +63,9 @@
       <div>
         <div class="card-body">
           <h5>Person Info</h5>
+          <input type="hidden" id="total-controller-input" name="total-controller-input">
+          <input type="hidden" id="total-feet-input" name="total-feet-input">
+          <input type="hidden" id="total-input" name="total-input">
           <div class="row pt-3">
             <div class="col-md-6">
               <div class="mb-3">
@@ -193,24 +203,42 @@
             </div>
             
           </div>
-
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mb-3">
-                <label class="mb-1">Color Swatches</label>
-                <select class="form-control form-select" id="color" name="color" required>
-                  <option>--Select color--</option>
-                  <option>Red</option>
-                  <option>Blue</option>
-                  <option>Yellow</option>
-                </select>
+          <div class="controller-row mt-3">
+            <div class="row align-items-end mb-1">
+              <div class="col-md-2">
+                  <label class="mb-1">Product</label>
+              </div>
+              <div class="col-md-2">
+                  <label class="mb-1">Quantity</label>
+              </div>
+              <div class="col-md-2">
+                  <label class="mb-1">Amount</label>
               </div>
             </div>
+
+            <?php foreach($product as $row) { ?>
+            <div class="row align-items-end mb-3">
+              <div class="col-md-2">
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="product_<?php echo $row['product_id']; ?>" data-amount="<?php echo $row['price']; ?>" name="product_<?php echo $row['product_id']; ?>" value="<?php echo $row['product_title']; ?>" readonly>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="mb-3">
+                  <input type="text" class="form-control product-qty" id="product_qty_<?php echo $row['product_id']; ?>" name="product_qty_<?php echo $row['product_id']; ?>" value="0" required="">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="mb-3">
+                  <input type="text" class="form-control sub-total sub-total-control" id="product_amount_<?php echo $row['product_id']; ?>" name="product_amount_<?php echo $row['product_id']; ?>" readonly>
+                </div>
+              </div>
+            </div>
+            <?php } ?>
           </div>
 
           <div class="row align-items-end mb-2 main-row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <label class="mb-1">Annotation Image</label>
                 <div class="custom-file">
                     <input type="file" class="form-control" id="annotation_image" name="annotation_image">
@@ -226,17 +254,35 @@
                 <label class="mb-1">Identify the photo</label>
                 <input type="text" class="form-control" id="identify_photo" name="identify_photo" required="">
             </div>
+            <div class="col-md-2">
+                <label class="mb-1">Color</label>
+                <select class="form-control form-select" id="color" name="color" required>
+                  <option>--Select color--</option>
+                  <option>Red</option>
+                  <option>Blue</option>
+                  <option>Yellow</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <label class="mb-1">Number of Peaks</label>
+                <input type="text" class="form-control" id="peaks" name="peaks" required="">
+            </div>
+            <div class="col-md-1">
+                <label class="mb-1">Number of Jumper</label>
+                <input type="text" class="form-control" id="jumper" name="jumper" required="">
+            </div>
             <div class="col-md-1">
                 <label class="mb-1">Total</label>
                 <input type="text" class="form-control" id="sumInputBox" name="sumInputBox" readonly>
             </div>
-            <div class="col-md-2">
-                <label class="mb-1">Number of Peaks</label>
-                <input type="text" class="form-control" id="peaks" name="peaks" required="">
+            <div class="col-md-1">
+                <label class="mb-1">Unit price</label>
+                <input type="text" class="form-control" id="unite_price" name="unite_price" required="">
             </div>
-            <div class="col-md-2">
-                <label class="mb-1">Number of Jumper</label>
-                <input type="text" class="form-control" id="jumper" name="jumper" required="">
+            
+            <div class="col-md-1">
+                <label class="mb-1">Amount</label>
+                <input type="text" class="form-control sub-total sub-total-feet" id="amount" name="amount" required="">
             </div>
             <div class="d-block mt-4">
               <div id="drawnLinesPreviewContainer" style="display: none;width:20%">
@@ -268,6 +314,12 @@
               <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
               Creating...
             </button>
+            <div class="main-total-div">
+              <p style="font-weight: 300;margin-bottom: 8px;">Total Controller price : $ <span id="total-controller">0</span></p>
+              <p style="font-weight: 300;margin-bottom: 5px;">Total Linear Feet Price : $ <span id="total-feet">0</span></p>
+              <hr>
+              <p>Main Total : $ <span id="total">0</span></p>
+            </div>
           </div>
         </div>
       </div>
@@ -340,6 +392,54 @@
   <script src="<?php echo base_url(); ?>assets/libs/jquery.repeater/jquery.repeater.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/plugins/repeater-init.js"></script>
   <script>
+    $('.product-qty').on('input', function() {
+      // Get the corresponding product amount input field
+      $(this).val($(this).val().replace(/[^0-9]/g, ''));
+      var productId = $(this).attr('id').split('_').pop();
+      
+      var amountInput = $('#product_amount_' + productId);
+      var productInput = $('#product_' + productId);
+      // Get the amount from data-amount attribute
+      var amountPerItem = parseFloat(productInput.data('amount'));
+      // Calculate the total amount based on quantity
+      var quantity = parseInt($(this).val());
+      var totalAmount = amountPerItem * quantity;
+
+      // Update the product amount input field
+      amountInput.val(isNaN(totalAmount) ? '' : totalAmount.toFixed(2));
+      updateMainTotal();
+      updateTotalcontroller();
+    });
+    function updateMainTotal() {
+        var subTotal = 0;
+        // Loop through each sub-total input and sum up their values
+        $('.sub-total').each(function() {
+            subTotal += parseFloat($(this).val()) || 0; // Ensure to parse float and handle NaN
+        });
+        // Update the main total element with the calculated total
+        $('#total').text(subTotal.toFixed(2)); // Format total to two decimal places
+        $('#total-input').val(subTotal.toFixed(2));
+    }
+    function updateTotalfeet() {
+        var subTotal = 0;
+        // Loop through each sub-total input and sum up their values
+        $('.sub-total-feet').each(function() {
+            subTotal += parseFloat($(this).val()) || 0; // Ensure to parse float and handle NaN
+        });
+        // Update the main total element with the calculated total
+        $('#total-feet').text(subTotal.toFixed(2)); // Format total to two decimal places
+        $('#total-feet-input').val(subTotal.toFixed(2));
+    }
+    function updateTotalcontroller() {
+        var subTotal = 0;
+        // Loop through each sub-total input and sum up their values
+        $('.sub-total-control').each(function() {
+            subTotal += parseFloat($(this).val()) || 0; // Ensure to parse float and handle NaN
+        });
+        // Update the main total element with the calculated total
+        $('#total-controller').text(subTotal.toFixed(2));
+        $('#total-controller-input').val(subTotal.toFixed(2)); // Format total to two decimal places
+    }
     $(document).ready(function() {
       var rowCount = 1; // Initialize row count
       
@@ -349,10 +449,10 @@
         rowCount++; // Increment row count
         
         // Remove label from cloned row
-        clone.find('label').remove();
+        //clone.find('label').remove();
         
         // Set unique field names and IDs
-        clone.find('input').each(function() {
+        clone.find('input, select').each(function() {
           var fieldName = $(this).attr('name');
           $(this).attr('name', fieldName + '_' + rowCount);
           $(this).attr('id', fieldName + '_' + rowCount);
@@ -385,6 +485,7 @@
             console.log('Error: Main row not found.');
         }
     });
+    
      $('input[name="plugaccess"]').change(function(){
         var value = $(this).val();
         //alert(value);
@@ -694,4 +795,38 @@
                 $('#imageModal').modal('show'); // Display the modal using Bootstrap's modal method
             });
         }
+
+        function calculateAmount(sumInputBox, unitePrice, amountInput) {
+            var sum = parseFloat(sumInputBox.val());
+            var price = parseFloat(unitePrice.val());
+            var amount = sum * price;
+            amountInput.val(amount.toFixed(2)); // Assuming you want 2 decimal places
+        }
+
+        // Attach input event listener to dynamically created unite_price inputs
+        $(document).on('input', 'input[name^="unite_price"]', function() {
+            var row = $(this).closest('.main-row');
+            var sumInputBox = row.find('input[name^="sumInputBox"]');
+            var amountInput = row.find('input[name^="amount"]');
+            calculateAmount(sumInputBox, $(this), amountInput);
+            updateMainTotal();
+            updateTotalfeet();
+        });
+
+        function attachEventListeners() {
+        $('.main-row').each(function(index) {
+              var sumInputBox = $(this).find('input[name^="sumInputBox"]');
+              var unitePrice = $(this).find('input[name^="unite_price"]');
+              var amountInput = $(this).find('input[name^="amount"]');
+              
+              // Trigger calculation on input
+              sumInputBox.on('input', function() {
+                  calculateAmount($(this), unitePrice, amountInput);
+                  updateMainTotal();
+                  updateTotalfeet();
+              });
+          });
+      }
+      // Call the function to attach initial event listeners
+      attachEventListeners();
   </script>

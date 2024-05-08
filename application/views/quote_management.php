@@ -34,7 +34,7 @@
                                         <th>Customer Name</th>
                                         <th>Phone</th>
                                         <th>Address</th>
-                                        <th>Color</th>
+                                        <th>Total</th>
                                         <th>Date</th>
                                         <th>Action</th>
                                     </tr>
@@ -48,7 +48,7 @@
                                         <td><?php echo $row['fname'].' '.$row['lname']; ?></td>
                                         <td><?php echo $row['phone'];?></td>
                                         <td><?php echo $row['address'].'<br>'.$row['city'].', '.$row['state'];?></td>
-                                        <td><?php echo $row['color'];?></td>
+                                        <td><?php echo $row['main_total'];?></td>
                                         <td><?php echo $row['created_at'];?></td>
                                         <td>
                                           <ul class="list-unstyled mb-0 d-flex align-items-center">

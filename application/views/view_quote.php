@@ -226,7 +226,7 @@
                                              <h4 class="mb-0 fs-5"><?php echo ucwords($item['identify_image_name']); ?></h4>
                                              <p class="text-muted"><?php echo ucwords($item['type']); ?></p>
                                              <ul>
-                                                <li><b>Total</b> - <?php echo ucwords($item['total']); ?></li>
+                                                <li><b>Total</b> - <?php echo ucwords($item['total_numerical_box']); ?></li>
                                                 <li><b>No Peaks</b> - <?php echo ucwords($item['no_peaks']); ?></li>
                                                 <li><b>No Jumper</b> - <?php echo ucwords($item['no_jumper']); ?></li>
                                              </ul>

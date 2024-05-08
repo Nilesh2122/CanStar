@@ -24,6 +24,15 @@ Class ModelQuote extends CI_Model
         $result = $query->result_array();
         return $result;
     }
+    public function getProductdata()
+    {
+        $this->db->select( '*' );
+        $this->db->from( 'product_tbl' );
+        $this->db->where( 'product_tbl.type', 1);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+    }
     public function add_quote_process($data)
     {
         $this->db->insert( 'quote_tbl', $data );            
@@ -230,9 +239,12 @@ Class ModelQuote extends CI_Model
                 'identify_image_name' => $file_name,
                 'image_url' => $file_path,
                 'identify_image_name' => ($index != 1) ? $_POST['identify_photo_'.$index] :$_POST['identify_photo'],
-                'total' => ($index != 1) ? $_POST['sumInputBox_'.$index] :$_POST['sumInputBox'],
+                'total_numerical_box' => ($index != 1) ? $_POST['sumInputBox_'.$index] :$_POST['sumInputBox'],
+                'unit_price' => ($index != 1) ? $_POST['unite_price_'.$index] :$_POST['unite_price'],
+                'total_amount' => ($index != 1) ? $_POST['amount_'.$index] :$_POST['amount'],
                 'no_peaks' => ($index != 1) ? $_POST['peaks_'.$index] :$_POST['peaks'],
                 'no_jumper' => ($index != 1) ? $_POST['jumper_'.$index] :$_POST['jumper'],
+                'color' => ($index != 1) ? $_POST['color_'.$index] :$_POST['color'],
                 'created_at' => date('Y-m-d H:i:s')
             ];
         }
