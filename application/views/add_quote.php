@@ -34,16 +34,53 @@
       font-size: 16px;
       font-weight: 700;
     }
+
+    
+
+    .remove-icon {
+        position: absolute; /* Position the icon absolutely within the text box */
+        top: -10px; /* Adjusted position to make it overlap the border neatly */
+        right: -10px; /* Adjusted position to make it overlap the border neatly */
+        width: 20px; /* Set the width of the button */
+        height: 20px; /* Set the height of the button */
+        background-color: white; /* White background */
+        border: 1px solid black; /* Black border */
+        border-radius: 50%; /* Make it round */
+        display: flex; /* Use flexbox for centering */
+        align-items: center; /* Center the icon vertically */
+        justify-content: center; /* Center the icon horizontally */
+        cursor: pointer; /* Pointer cursor */
+        color: red; /* Black text color */
+        font-weight: bold; /* Bold text */
+        line-height: 1; /* Ensure the text is vertically centered */
+        display: none; /* Initially hide the remove icon */
+    }
+
+    /* Show the remove icon when hovering over the text box */
+    .text-box .remove-icon {
+        display: flex;
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* For Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
 </style>
 <div class="container-fluid">
   <div class="card bg-light-info shadow-none position-relative overflow-hidden">
     <div class="card-body px-4 py-3">
       <div class="row align-items-center">
         <div class="col-9">
-          <h4 class="fw-semibold mb-8">Add User</h4>
+          <h4 class="fw-semibold mb-8">Add Quote</h4>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a class="text-muted text-decoration-none" href="<?php echo base_url(); ?>Users">Users</a></li>
+              <li class="breadcrumb-item"><a class="text-muted text-decoration-none" href="<?php echo base_url(); ?>Users">Quote</a></li>
               <li class="breadcrumb-item" aria-current="page">Add</li>
             </ol>
           </nav>
@@ -83,8 +120,14 @@
           <div class="row">
             <div class="col-md-6">
               <div class="mb-3">
+                <label class="control-label mb-1">Email Id</label>
+                <input type="email" id="email" class="form-control" name="email" placeholder="Enter Email Id" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
                 <label class="control-label mb-1">Phone number</label>
-                <input type="text" id="phone" class="form-control" name="phone" placeholder="Enter phone number" required>
+                <input type="text" id="phone" class="form-control" name="phone" placeholder="Enter phone number" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
               </div>
             </div>
           </div>
@@ -131,6 +174,7 @@
                 <label class="mb-1">Country</label>
                 <select class="form-control form-select" id="country" name="country" required>
                   <option>--Select your Country--</option>
+                  <option>Canada</option>
                   <option>India</option>
                   <option>Sri Lanka</option>
                   <option>USA</option>
@@ -237,6 +281,35 @@
             <?php } ?>
           </div>
 
+          <div>  
+            <div class="row align-items-end mb-1 custom-product-label" style="display:none">
+              <div class="col-md-5">
+                  <label class="mb-1">Product Description</label>
+              </div>
+              <div class="col-md-1">
+                  <label class="mb-1">Quantity</label>
+              </div>
+              <div class="col-md-2">
+                  <label class="mb-1">Unite Price</label>
+              </div>
+              <div class="col-md-2">
+                  <label class="mb-1">Amount</label>
+              </div>
+              <div class="col-md-2">
+                  <label class="mb-1">Actions</label>
+              </div>
+            </div>
+            <div class="custom-product-field">
+              
+            </div>
+            <button type="button" class="btn btn-info waves-effect waves-light mb-4 btn-add-custom-product">
+              <div class="d-flex align-items-center">
+                Custom product
+                <i class="ti ti-circle-plus ms-1 fs-5"></i>
+              </div>
+            </button>
+          </div>
+
           <div class="row align-items-end mb-2 main-row">
             <div class="col-md-2">
                 <label class="mb-1">Annotation Image</label>
@@ -273,7 +346,7 @@
             </div>
             <div class="col-md-1">
                 <label class="mb-1">Total</label>
-                <input type="text" class="form-control" id="sumInputBox" name="sumInputBox" readonly>
+                <input type="number" class="form-control" id="sumInputBox" name="sumInputBox">
             </div>
             <div class="col-md-1">
                 <label class="mb-1">Unit price</label>
@@ -294,6 +367,8 @@
               </div>
             </div>
         </div>
+
+          
         <div>
           <button type="button" class="btn btn-info waves-effect waves-light mb-4 btn-add-more">
             <div class="d-flex align-items-center">
@@ -302,7 +377,27 @@
             </div>
           </button>
         </div>
+        <div class="row mb-2">
+            <div class="col-md-5">
+                <label class="mb-1">Notes</label>
+                <div class="custom-file">
+                  <textarea class="form-control" rows="4" name="notes" required></textarea>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="mb-1">Customer Visible</label>
+                <div class="form-check">
+                  <input type="radio" id="customRadio11" name="visible" class="form-check-input" value="yes" checked>
+                  <label class="form-check-label" for="customRadio11">Yes</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" id="customRadio22" name="visible" class="form-check-input" value="no">
+                  <label class="form-check-label" for="customRadio22">No</label>
+                </div>
+            </div>
+          </div>
         <div class="form-actions">
+        <p style="font-weight: 300;margin-bottom: 5px;text-align:end">Enter Discount (%) : <input class="form-control" type="number" name="discountInput" id="discountInput" min="0" step="1" value="10" style="display: inline-block;width: 10%;"></p>
           <div class="card-body border-top">
             <button type="submit" class="btn btn-outline-primary font-medium rounded-pill px-4 submit-btn" >
               <div class="d-flex align-items-center">
@@ -409,6 +504,7 @@
       amountInput.val(isNaN(totalAmount) ? '' : totalAmount.toFixed(2));
       updateMainTotal();
       updateTotalcontroller();
+      calculateDiscountedTotal();
     });
     function updateMainTotal() {
         var subTotal = 0;
@@ -509,6 +605,81 @@
             $('#controller-no').show();
         }
     });
+
+     var rowCountCus = 0;
+    $(".btn-add-custom-product").click(function(){
+        rowCountCus++;
+        var newRow = 
+        '<div class="row" id="row-' + rowCountCus + '">' +
+          '<div class="col-md-5">' +
+              '<div class="mb-3">' +
+                  '<textarea class="form-control" rows="1"  id="description-' + rowCountCus + '" name="descriptionCus-' + rowCountCus + '"></textarea>' +
+              '</div>' +
+          '</div>' +
+          '<div class="col-md-1">' +
+              '<div class="mb-3">' +
+                  '<input type="text" class="form-control quantityCus"  id="quantityCus-' + rowCountCus + '" name="quantityCus-' + rowCountCus + '"  required="">' +
+              '</div>' +
+          '</div>' +
+          '<div class="col-md-2">' +
+              '<div class="mb-3">' +
+                  '<input type="text" class="form-control unit_priceCus"  id="unit_price-Cus-' + rowCountCus + '"  name="unit_priceCus-' + rowCountCus + '" required="">' +
+              '</div>' +
+          '</div>' +
+          '<div class="col-md-2">' +
+              '<div class="mb-3">' +
+                  '<input type="text" class="form-control amountCus sub-total sub-total-control" id="amount-Cus-' + rowCountCus + '" name="amountCus-' + rowCountCus + '" readonly>' +
+              '</div>' +
+          '</div>' +
+          '<div class="col-md-2">' +
+                  '<button type="button" class="btn btn-danger btn-remove-row">Remove</button>' +
+          '</div>' +
+      '</div>';
+     // $(".btn-add-custom-product").before(newRow);
+      $(".custom-product-field").append(newRow);
+      toggleLabelVisibility();
+    });
+    $(document).on("click", ".btn-remove-row", function(){
+        $(this).closest('.row').remove();
+        toggleLabelVisibility();
+        updateMainTotal();
+        updateTotalcontroller();
+    });
+    function toggleLabelVisibility() {
+        if ($('.custom-product-field .row').length >= 1) {
+            $('.custom-product-label').show();
+        } else {
+            $('.custom-product-label').hide();
+        }
+    }
+    $(document).on("input", ".quantityCus, .unit_priceCus", function(){
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        var row = $(this).closest('.row');
+        calculateAmountCustomproducts(row);
+        calculateDiscountedTotal();
+    });
+    function calculateAmountCustomproducts(row) {
+        var quantity = parseFloat(row.find('.quantityCus').val());
+        var unitPrice = parseFloat(row.find('.unit_priceCus').val());
+        var total = quantity * unitPrice;
+        row.find('.amountCus').val(total.toFixed(2));
+        updateMainTotal();
+        updateTotalcontroller();
+        calculateDiscountedTotal();
+    }
+    $("#discountInput").on('input', function(){
+        calculateDiscountedTotal();
+    });
+    function calculateDiscountedTotal() {
+        var controller = parseFloat($("#total-controller-input").val()) || 0; // Get the value of the controller input as a float
+        var feet = parseFloat($("#total-feet-input").val()) || 0;
+        var total = controller+feet; // Extract the numeric value
+        var discountPercentage =  parseFloat($("#discountInput").val());// Get the discount percentage from the input field
+        var discountedTotal = total - (total * (discountPercentage / 100)); // Calculate the discounted total
+        console.log(discountedTotal);
+        $('#total').text(discountedTotal.toFixed(2)); // Format total to two decimal places
+        $('#total-input').val(discountedTotal.toFixed(2));
+    };
     var rowCount = 1; // Initialize the row count
     
     function duplicateRow() {
@@ -657,7 +828,7 @@
                 saveImage(rowCount);
             });
 
-            function addText(text, x, y) {
+            /*function addText(text, x, y) {
                 var textBox = $('<div>').addClass('text-box').text(text).css({ left: x, top: y });
                 overlay.append(textBox);
                 textBox.on('mousedown', function(e){
@@ -666,6 +837,35 @@
                     offsetY = e.offsetY;
                 }).on('mouseup', function(){
                     selectedTextBox = null;
+                });
+            }*/
+            function addText(text, x, y) {
+            // Create the text box div
+                var textBox = $('<div>').addClass('text-box').css({ left: x, top: y });
+                // Add the text and remove icon to the text box
+                var textContent = $('<span>').text(text);
+                var removeIcon = $('<span>').addClass('remove-icon').html('&times;').hide(); // Initially hide the remove icon
+                textBox.append(textContent).append(removeIcon);
+                // Append the text box to the overlay
+                overlay.append(textBox);
+
+                // Event handlers for dragging
+                textBox.on('mousedown', function(e){
+                    selectedTextBox = $(this);
+                    offsetX = e.offsetX;
+                    offsetY = e.offsetY;
+                }).on('mouseup', function(){
+                    selectedTextBox = null;
+                });
+
+                // Event handler to show the remove icon on double-click
+                textBox.on('dblclick', function(){
+                    removeIcon.toggle(); // Toggle the visibility of the remove icon
+                });
+
+                // Event handler for the remove icon
+                removeIcon.on('click', function(){
+                    textBox.remove();
                 });
             }
             overlay.on('mousemove', function(e){
@@ -705,6 +905,8 @@
 
 
         function saveImage(rowCount) {
+         
+          $('.remove-icon').remove();
             // Create a canvas for drawn lines
             var drawnLinesCanvas = document.createElement('canvas');
             drawnLinesCanvas.width = originalImg.width;
@@ -745,6 +947,7 @@
             $('.text-box').each(function() {
                 var $textBox = $(this);
                 var text = $textBox.text();
+                $textBox.find('.remove-icon').remove();
                 var x = parseInt($textBox.css('left'), 10);
                 var y = parseInt($textBox.css('top'), 10);
                 var width = $textBox.outerWidth();
@@ -811,6 +1014,7 @@
             calculateAmount(sumInputBox, $(this), amountInput);
             updateMainTotal();
             updateTotalfeet();
+            calculateDiscountedTotal();
         });
 
         function attachEventListeners() {
@@ -823,6 +1027,7 @@
               sumInputBox.on('input', function() {
                   calculateAmount($(this), unitePrice, amountInput);
                   updateMainTotal();
+                  calculateDiscountedTotal();
                   updateTotalfeet();
               });
           });

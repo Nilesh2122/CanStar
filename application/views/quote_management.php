@@ -35,13 +35,21 @@
                                         <th>Phone</th>
                                         <th>Address</th>
                                         <th>Total</th>
+                                        <th>Status</th>
                                         <th>Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
+                                    $statusMap = [
+                                        1 => 'Created',
+                                        2 => 'Pending Approval',
+                                        3 => 'Approved',
+                                        4 => 'Cancelled'
+                                    ];
                                     foreach($quote as $row){
+                                      $status = isset($statusMap[$row['status']]) ? $statusMap[$row['status']] : 'Unknown Status';
                                     ?>
                                     <tr>
                                         <td><?php echo $row['salesman'];?></td>
@@ -49,9 +57,15 @@
                                         <td><?php echo $row['phone'];?></td>
                                         <td><?php echo $row['address'].'<br>'.$row['city'].', '.$row['state'];?></td>
                                         <td><?php echo $row['main_total'];?></td>
+                                        <td><?php echo $status;?></td>
                                         <td><?php echo $row['created_at'];?></td>
                                         <td>
                                           <ul class="list-unstyled mb-0 d-flex align-items-center">
+                                            <li class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
+                                              <a class="d-block text-dark px-2 fs-5 bg-hover-primary nav-icon-hover position-relative z-index-5" href="<?php echo base_url(); ?>Quote/edit_quote/<?php echo $row['quote_id']; ?>">
+                                                <i class="ti ti-pencil"></i>
+                                              </a>
+                                            </li>
                                             <li class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View">
                                               <a class="d-block text-dark px-2 fs-5 bg-hover-primary nav-icon-hover position-relative z-index-5" href="<?php echo base_url(); ?>Quote/view_quote/<?php echo $row['quote_id']; ?>">
                                                 <i class="ti ti-eye fs-5"></i>

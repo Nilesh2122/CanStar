@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2024 at 07:35 PM
+-- Generation Time: May 27, 2024 at 07:47 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -42,14 +42,16 @@ CREATE TABLE `access_image_tbl` (
 --
 
 INSERT INTO `access_image_tbl` (`accessimg_id`, `quote_id`, `access_type`, `data`, `data_type`, `created_at`, `modified_at`) VALUES
-(79, 53, 'plug', 'assets/uploads/Screenshot 2024-04-09 222113.png', 1, '2024-04-30 18:22:54', '2024-04-30 16:22:54'),
-(80, 53, 'controller', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 2, '2024-04-30 18:22:54', '2024-04-30 16:22:54'),
-(81, 54, 'plug', 'assets/uploads/Screenshot 2024-03-14 223548.png', 1, '2024-05-02 18:43:40', '2024-05-02 16:43:40'),
-(82, 54, 'controller', 'assets/uploads/Screenshot 2024-04-01 215925.png', 1, '2024-05-02 18:43:40', '2024-05-02 16:43:40'),
-(83, 55, 'plug', 'assets/uploads/Screenshot 2024-03-14 223548.png', 1, '2024-05-02 19:25:57', '2024-05-02 17:25:57'),
-(84, 55, 'controller', 'no controller access', 2, '2024-05-02 19:25:57', '2024-05-02 17:25:57'),
-(85, 56, 'plug', '', 2, '2024-05-08 19:29:34', '2024-05-08 17:29:34'),
-(86, 56, 'controller', '', 2, '2024-05-08 19:29:34', '2024-05-08 17:29:34');
+(3, 2, 'plug', '', 2, '2024-05-25 12:30:49', '2024-05-25 10:30:49'),
+(4, 2, 'controller', '', 2, '2024-05-25 12:30:49', '2024-05-25 10:30:49'),
+(9, 1, 'plug', 'No controller access', 2, '2024-05-27 19:18:42', '2024-05-27 17:18:42'),
+(10, 1, 'controller', 'No controller access', 2, '2024-05-27 19:18:42', '2024-05-27 17:18:42'),
+(11, 3, 'plug', 'no', 2, '2024-05-27 19:23:44', '2024-05-27 17:23:44'),
+(12, 3, 'controller', 'no', 2, '2024-05-27 19:23:44', '2024-05-27 17:23:44'),
+(13, 4, 'plug', 'no', 2, '2024-05-27 19:23:50', '2024-05-27 17:23:50'),
+(14, 4, 'controller', 'no', 2, '2024-05-27 19:23:50', '2024-05-27 17:23:50'),
+(23, 5, 'plug', 'no', 2, '2024-05-27 19:37:50', '2024-05-27 17:37:50'),
+(24, 5, 'controller', 'no', 2, '2024-05-27 19:37:50', '2024-05-27 17:37:50');
 
 -- --------------------------------------------------------
 
@@ -78,22 +80,10 @@ CREATE TABLE `annotation_image_tbl` (
 --
 
 INSERT INTO `annotation_image_tbl` (`annotation_image_id`, `quote_id`, `image_url`, `type`, `identify_image_name`, `color`, `total_numerical_box`, `unit_price`, `total_amount`, `no_peaks`, `no_jumper`, `created_at`, `modified_at`) VALUES
-(18, 53, 'assets/uploads/66311ade98f90drawnLines_0.png', 'drawnLines', 'front', '', 30, '', '', 1, 1, '2024-04-30 18:22:54', '2024-04-30 16:22:54'),
-(19, 53, 'assets/uploads/66311ade99113drawnLines_1.png', 'drawnLines', 'back', '', 20, '', '', 2, 2, '2024-04-30 18:22:54', '2024-04-30 16:22:54'),
-(20, 53, 'assets/uploads/66311ade99266fullyEdited_0.png', 'fullyEdited', 'front', '', 30, '', '', 1, 1, '2024-04-30 18:22:54', '2024-04-30 16:22:54'),
-(21, 53, 'assets/uploads/66311ade993b3fullyEdited_1.png', 'fullyEdited', 'back', '', 20, '', '', 2, 2, '2024-04-30 18:22:54', '2024-04-30 16:22:54'),
-(22, 54, 'assets/uploads/6633c2bc35217drawnLines_0.png', 'drawnLines', 'front', '', 10, '', '', 10, 20, '2024-05-02 18:43:40', '2024-05-02 16:43:40'),
-(23, 54, 'assets/uploads/6633c2bc35386drawnLines_1.png', 'drawnLines', 'back', '', 20, '', '', 30, 40, '2024-05-02 18:43:40', '2024-05-02 16:43:40'),
-(24, 54, 'assets/uploads/6633c2bc354e9fullyEdited_0.png', 'fullyEdited', 'front', '', 10, '', '', 10, 20, '2024-05-02 18:43:40', '2024-05-02 16:43:40'),
-(25, 54, 'assets/uploads/6633c2bc35608fullyEdited_1.png', 'fullyEdited', 'back', '', 20, '', '', 30, 40, '2024-05-02 18:43:40', '2024-05-02 16:43:40'),
-(26, 55, 'assets/uploads/6633cca516808drawnLines_0.png', 'drawnLines', 'Front', '', 60, '', '', 10, 20, '2024-05-02 19:25:57', '2024-05-02 17:25:57'),
-(27, 55, 'assets/uploads/6633cca5169a8drawnLines_1.png', 'drawnLines', 'back', '', 30, '', '', 40, 50, '2024-05-02 19:25:57', '2024-05-02 17:25:57'),
-(28, 55, 'assets/uploads/6633cca516af9fullyEdited_0.png', 'fullyEdited', 'Front', '', 60, '', '', 10, 20, '2024-05-02 19:25:57', '2024-05-02 17:25:57'),
-(29, 55, 'assets/uploads/6633cca516c5efullyEdited_1.png', 'fullyEdited', 'back', '', 30, '', '', 40, 50, '2024-05-02 19:25:57', '2024-05-02 17:25:57'),
-(30, 56, 'assets/uploads/663bb67e116f2drawnLines_0.png', 'drawnLines', 'Eveniet commodo rat', 'Red', 2, '1', '2.00', 1, 1, '2024-05-08 19:29:34', '2024-05-08 17:29:34'),
-(31, 56, 'assets/uploads/663bb67e11d85drawnLines_1.png', 'drawnLines', '10', 'Blue', 20, '10', '20.00', 1, 1, '2024-05-08 19:29:34', '2024-05-08 17:29:34'),
-(32, 56, 'assets/uploads/663bb67e11ed9fullyEdited_0.png', 'fullyEdited', 'Eveniet commodo rat', 'Red', 2, '1', '2.00', 1, 1, '2024-05-08 19:29:34', '2024-05-08 17:29:34'),
-(33, 56, 'assets/uploads/663bb67e12004fullyEdited_1.png', 'fullyEdited', '10', 'Blue', 20, '10', '20.00', 1, 1, '2024-05-08 19:29:34', '2024-05-08 17:29:34');
+(22, 5, 'assets/uploads/6654c4ee25d3edrawnLines_0.png', 'drawnLines', 'Front', 'Red', 10, '1', '10.00', 1, 1, '2024-05-27 19:37:50', '2024-05-27 17:37:50'),
+(23, 5, 'assets/uploads/6654c4ee25f6cdrawnLines_1.png', 'drawnLines', 'Asdas', 'Blue', 1, '1', '1.00', 1, 1, '2024-05-27 19:37:50', '2024-05-27 17:37:50'),
+(24, 5, 'assets/uploads/6654c4ee26178fullyEdited_0.png', 'fullyEdited', 'Front', 'Red', 10, '1', '10.00', 1, 1, '2024-05-27 19:37:50', '2024-05-27 17:37:50'),
+(25, 5, 'assets/uploads/6654c4ee2632dfullyEdited_1.png', 'fullyEdited', 'Asdas', 'Blue', 1, '1', '1.00', 1, 1, '2024-05-27 19:37:50', '2024-05-27 17:37:50');
 
 -- --------------------------------------------------------
 
@@ -117,9 +107,9 @@ CREATE TABLE `product_tbl` (
 --
 
 INSERT INTO `product_tbl` (`product_id`, `product_title`, `product_description`, `volt`, `price`, `type`, `created_at`, `modified_at`) VALUES
-(1, '12V', 'Canstar two zone AI controller box system with 12V outdoor rated power supply unit for thefront and back', '12V', '700', 1, '2024-05-06 18:33:23', '2024-05-06 16:34:08'),
-(2, '15V', 'Canstar two zone AI controller box system with 15V outdoor rated power supply unit for thefront and back', '15V', '1000', 1, '2024-05-06 18:33:23', '2024-05-06 16:34:08'),
-(3, '20V', 'Canstar two zone AI controller box system with 20V outdoor rated power supply unit for thefront and back', '20V', '1500', 1, '2024-05-06 18:33:23', '2024-05-06 16:34:08');
+(1, '350W', 'Canstar two zone AI controller box system with 12V outdoor rated power supply unit for thefront and back', '350V', '250', 1, '2024-05-06 18:33:23', '2024-05-06 16:34:08'),
+(2, '450W', 'Canstar two zone AI controller box system with 15V outdoor rated power supply unit for thefront and back', '15V', '300', 1, '2024-05-06 18:33:23', '2024-05-06 16:34:08'),
+(3, '600W', 'Canstar two zone AI controller box system with 20V outdoor rated power supply unit for thefront and back', '20V', '450', 1, '2024-05-06 18:33:23', '2024-05-06 16:34:08');
 
 -- --------------------------------------------------------
 
@@ -133,15 +123,21 @@ CREATE TABLE `quote_tbl` (
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
   `state` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
   `post_code` varchar(255) NOT NULL,
   `product_data` text NOT NULL,
+  `custom_product_data` text NOT NULL,
   `total_controller_price` text NOT NULL,
   `total_feet_price` text NOT NULL,
+  `discount_percentage` text NOT NULL,
   `main_total` text NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 0,
+  `notes` text NOT NULL,
+  `customer_visible` text NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0 COMMENT '1-created,2-pending_approval,3-approved,4-confirm,5-cancelled',
   `created_at` datetime NOT NULL,
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -150,11 +146,8 @@ CREATE TABLE `quote_tbl` (
 -- Dumping data for table `quote_tbl`
 --
 
-INSERT INTO `quote_tbl` (`quote_id`, `user_id`, `fname`, `lname`, `phone`, `address`, `city`, `state`, `post_code`, `product_data`, `total_controller_price`, `total_feet_price`, `main_total`, `status`, `created_at`, `modified_at`) VALUES
-(53, 2, 'Nilesh', 'Gohil', '8140364455', 'silver status', 'surat', 'gujarat', '395420', '', '', '', '', 0, '2024-04-30 18:22:54', '2024-04-30 16:22:54'),
-(54, 2, 'mayur', 'sutariya', '9998872253', 'surat', 'surat', 'gujarat', '395006', '', '', '', '', 0, '2024-05-02 18:43:40', '2024-05-02 16:43:40'),
-(55, 2, 'harsh', 'patel', '9998872253', 'canada', 'canada', 'canada', '395006', '', '', '', '', 0, '2024-05-02 19:25:57', '2024-05-02 17:25:57'),
-(56, 1, 'Ariana', 'Leblanc', '+1 (939) 784-9966', 'Placeat sint cupidi', 'Eaque adipisci nostr', 'Asperiores possimus', 'Ea aliqua Omnis quo', '[{\"product\":\"12V\",\"qty\":\"178\",\"amount\":\"124600.00\"},{\"product\":\"15V\",\"qty\":\"656\",\"amount\":\"656000.00\"},{\"product\":\"20V\",\"qty\":\"82\",\"amount\":\"123000.00\"}]', '903600.00', '22.00', '903622.00', 0, '2024-05-08 19:29:34', '2024-05-08 17:29:34');
+INSERT INTO `quote_tbl` (`quote_id`, `user_id`, `fname`, `lname`, `phone`, `email`, `address`, `city`, `state`, `country`, `post_code`, `product_data`, `custom_product_data`, `total_controller_price`, `total_feet_price`, `discount_percentage`, `main_total`, `notes`, `customer_visible`, `status`, `created_at`, `modified_at`) VALUES
+(5, 2, 'Gopi ', 'Gohil', '8140364455', 'gopi@gmail.com', 'surat', 'surat', 'guajrat', 'Canada', '392006', '[{\"product\":\"350W\",\"qty\":\"1\",\"amount\":\"250.00\"},{\"product\":\"450W\",\"qty\":\"01\",\"amount\":\"300.00\"},{\"product\":\"600W\",\"qty\":\"1\",\"amount\":\"450.00\"}]', '[{\"product\":\"product\",\"qty\":\"1\",\"unit_price\":\"1\",\"amount\":\"1.00\"}]', '1001.00', '11.00', '0', '1012.00', 'no', 'no', 2, '2024-05-27 19:37:50', '2024-05-27 17:24:38');
 
 -- --------------------------------------------------------
 
@@ -225,13 +218,13 @@ ALTER TABLE `user_tbl`
 -- AUTO_INCREMENT for table `access_image_tbl`
 --
 ALTER TABLE `access_image_tbl`
-  MODIFY `accessimg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `accessimg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `annotation_image_tbl`
 --
 ALTER TABLE `annotation_image_tbl`
-  MODIFY `annotation_image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `annotation_image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `product_tbl`
@@ -243,7 +236,7 @@ ALTER TABLE `product_tbl`
 -- AUTO_INCREMENT for table `quote_tbl`
 --
 ALTER TABLE `quote_tbl`
-  MODIFY `quote_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `quote_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_tbl`

@@ -11,6 +11,7 @@ class Users extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('session');
 		$this->load->model('ModelUsers');
+		$this->load->model('ModelQuote');
 	}
 	function isLoggedIn() 
 	{
@@ -76,5 +77,15 @@ class Users extends CI_Controller {
 		$result = $this->ModelUsers->delete_user($user_id);
 		echo json_encode($result);
 		//redirect(base_url().'designers', 'refresh');	
+	}
+	public function quote_invoice()
+	{
+		$quote_id = $this->uri->segment(3);
+		$result['quote'] = $this->ModelQuote->view_quote($quote_id);
+		/* echo "<pre>";
+		print_r($result);
+		echo "</pre>";
+		exit();  */
+		$this->load->view('customer_quote',$result);
 	}
 }
